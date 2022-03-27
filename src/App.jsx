@@ -14,6 +14,7 @@ function App() {
   const [gastos, setGastos] = useState([])
   const [gastoEditar, setGastoEditar] = useState({})
 
+
   useEffect(()=>{
     if (Object.keys(gastoEditar).length > 0){
       setModal(true)
@@ -30,6 +31,11 @@ function App() {
     setTimeout(() => {
       setAnimarModal(true)
     }, 500);
+  }
+
+  const eliminarGasto = (id) => {
+    const gastosAct = gastos.filter( gastoState => gastoState.id !== id);
+    setGastos(gastosAct);
   }
 
   const guardarGasto = gasto => {
@@ -65,6 +71,7 @@ function App() {
         <>
         <main>
           <ListadoGastos
+          eliminarGasto={eliminarGasto}
           setGastoEditar={setGastoEditar}
           gastos={gastos}
           />
