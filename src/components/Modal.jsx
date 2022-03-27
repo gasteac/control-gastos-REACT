@@ -1,17 +1,28 @@
 import cerrarModal from '../img/cerrar.svg'
-import {useState} from 'react'
+import {useState, useEffect} from 'react'
 import Mensaje from './Mensaje'
-import {generarID} from '../helpers'
 
-const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
-
+const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto, gastoEditar}) => {
+const [mensaje, setMensaje] = useState('')
 const [nombre, setNombre] = useState('')
 const [cantidad, setCantidad] = useState('')
 const [categoria, setCategoria] = useState('')
-const [mensaje, setMensaje] = useState('')
+const [fecha, setFecha] = useState('')
+const [id, setid] = useState('')
+
+useEffect(()=>{
+    if (Object.keys(gastoEditar).length > 0){
+        setNombre(gastoEditar.nombre)
+        setCantidad(gastoEditar.cantidad)
+        setCategoria(gastoEditar.categoria)
+        setid(gastoEditar.id)
+        setFecha(gastoEditar.fecha)
+      }
+},[])
 
 const ocultarModal=()=>{
     setAnimarModal(false)
+    setGastoEditar({})
     setTimeout(() => {
         setModal(false)
     }, 300);
@@ -19,19 +30,12 @@ const ocultarModal=()=>{
 
 const handleSubmit =e =>{
     e.preventDefault();
-    
     if (([nombre, categoria].includes('')) || cantidad <= 0){
         setMensaje('Rellene todos los campos')
         return;
     } 
 
-    const gasto = {
-        nombre,
-        cantidad,
-        categoria,
-        id:generarID()
-    }
-    guardarGasto(gasto)
+    guardarGasto({nombre, cantidad, categoria, id, fecha})
     
 }
 
@@ -43,10 +47,10 @@ const handleSubmit =e =>{
         <form 
         onSubmit={handleSubmit}
         className={`formulario ${animarModal ? 'animar' : 'cerrar'}`}>
-            <legend>Nuevo gasto</legend>
+            <legend>{Object.keys(gastoEditar).length > 0 ? "Editar Gasto" : "Agregar Gasto"}</legend>
             <div className='campo'>
                 {mensaje && <Mensaje tipo="error">{mensaje}</Mensaje>}
-                <label htmlFor='nombre'>Nombre Gasto</label>
+                <label htmlFor='nombre'>Nombre</label>
                 <input
                 id='nombre'
                 type="text"
@@ -85,7 +89,7 @@ const handleSubmit =e =>{
             </div>
             <input
                 type="submit"
-                value="Agregar gasto"
+                value={Object.keys(gastoEditar).length > 0 ? "Editar Gasto" : "Agregar Gasto"}
             />
         </form>
     </div>
