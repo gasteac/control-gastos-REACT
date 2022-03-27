@@ -14,6 +14,7 @@ const Header = ({
   return (
     <header>
         <h1>Planificador de gastos</h1>
+        <h4>Deslizar gastos para eliminar o editar.</h4>
         {presupuestoOK ? (
           <ControlPresupuesto
           presupuesto={presupuesto}

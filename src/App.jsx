@@ -99,6 +99,7 @@ function App() {
         {presupuestoOK && 
         <>
         <main>
+
           <Filtros
           filtro={filtro}
           setFiltro={setFiltro}
