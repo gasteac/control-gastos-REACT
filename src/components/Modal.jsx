@@ -2,6 +2,7 @@ import cerrarModal from '../img/cerrar.svg'
 import {useState} from 'react'
 import Mensaje from './Mensaje'
 
+
 const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
 
 const [nombre, setNombre] = useState('')
@@ -20,7 +21,7 @@ const handleSubmit =e =>{
     e.preventDefault();
     
     if (([nombre, categoria].includes('')) || cantidad <= 0){
-        setMensaje('rellene todos los campos')
+        setMensaje('Rellene todos los campos')
         return;
     } 
     guardarGasto({
@@ -28,6 +29,7 @@ const handleSubmit =e =>{
     cantidad,
     categoria
     })
+  
     
 }
 
@@ -82,7 +84,6 @@ const handleSubmit =e =>{
             <input
                 type="submit"
                 value="Agregar gasto"
-                onChange={handleSubmit}
             />
         </form>
     </div>

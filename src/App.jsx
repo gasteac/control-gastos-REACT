@@ -3,7 +3,7 @@ import Header from './components/Header'
 import NuevoGasto from './img/nuevo-gasto.svg'
 import Modal from './components/Modal'
 import ListadoGastos from './components/ListadoGastos'
-import {generarID} from './components/helpers'
+import {generarID} from './helpers'
 
 
 function App() {
@@ -22,12 +22,11 @@ function App() {
 
   const guardarGasto = gasto => {
     gasto.id = generarID();
-    setGastos(...gastos, gasto);
+    setGastos([...gastos, gasto]);
       setAnimarModal(false)
       setTimeout(() => {
           setModal(false)
       }, 300);
-      console.log(gastos.length)
   }
   return (
     <div>
