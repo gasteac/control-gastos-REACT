@@ -22,6 +22,7 @@ function App() {
 
   const guardarGasto = gasto => {
     gasto.id = generarID();
+    gasto.fecha = (new Date(Date.now())).toLocaleDateString('es-ES');
     setGastos([...gastos, gasto]);
       setAnimarModal(false)
       setTimeout(() => {
@@ -29,7 +30,7 @@ function App() {
       }, 300);
   }
   return (
-    <div>
+    <div className={modal && 'fijar'}>
         <Header
           presupuesto={presupuesto}
           setPresupuesto={setPresupuesto}

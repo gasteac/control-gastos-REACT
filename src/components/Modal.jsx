@@ -1,7 +1,7 @@
 import cerrarModal from '../img/cerrar.svg'
 import {useState} from 'react'
 import Mensaje from './Mensaje'
-
+import {generarID} from '../helpers'
 
 const Modal = ({setModal, animarModal, setAnimarModal, guardarGasto}) => {
 
@@ -24,12 +24,14 @@ const handleSubmit =e =>{
         setMensaje('Rellene todos los campos')
         return;
     } 
-    guardarGasto({
-    nombre,
-    cantidad,
-    categoria
-    })
-  
+
+    const gasto = {
+        nombre,
+        cantidad,
+        categoria,
+        id:generarID()
+    }
+    guardarGasto(gasto)
     
 }
 
